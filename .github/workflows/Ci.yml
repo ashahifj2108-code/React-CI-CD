@@ -1,42 +1,47 @@
-name: Continuous Integration
+name: "Sample React CI Pipeline / Workflow"
 
 on:
     push:
         branches:
             - main
+            - master
 
 jobs:
-    Build-Test:
+    build-and-test:
         runs-on: ubuntu-latest
 
         steps:
-            - name: Setup Node JS
-              uses: action/setup-node@v6
+            - name: "Setup Node JS"
+              uses: actions/setup-node@v4
               with:
-                node-version: '21'
-   
-        
-            - name: Check node Version
-              run: npm --version
+                node-version: '21' 
+            
+            - name: "Check node version"
+              run: node --version
 
-            - name: Checkout the repo
-              uses: action/checkout@v4
+            - name: "Clone the repository"
+              uses: actions/checkout@v2 
+            
+            - name: "List directories"
+              run: ls
 
-            - name: Install Dependencies
+            - name: "Install dependencies"
               run: npm install
 
-            - name: Run link cheks
-              run: npm run link-check
+            - name: "List directories"
+              run: ls
 
-            - name: Run tests
+            - name: "Run lint"
+              run: npm run lint
+
+            - name: "Run tests"
               run: npm test
 
-            - name: Run build
+            - name: "Run build"
               run: npm run build
 
-            - name: Upload artifact
-              uses: actions/upload-artifact@v3
+            - name: "Upload product-ready build files"
+              uses: actions/upload-artifact@v4
               with:
                 name: build
-
-                
+                path: dist
