@@ -3,10 +3,12 @@ on:
     push:
         branches:
             - main
+            - QA
 
     pull_request:
         branches:
-            -main
+            - main
+            - QA
         types:
             - closed
             - opened
@@ -58,3 +60,5 @@ jobs:
         steps:
             - name: workflow-dispatch steps
               run: echo "This is the workflow-dispatch pipeline"
+
+            
