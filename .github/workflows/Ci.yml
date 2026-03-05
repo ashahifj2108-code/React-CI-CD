@@ -1,0 +1,42 @@
+name: Continuous Integration
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    Build-Test:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Setup Node JS
+              uses: action/setup-node@v6
+              with:
+                node-version: '21'
+   
+        
+            - name: Check node Version
+              run: npm --version
+
+            - name: Checkout the repo
+              uses: action/checkout@v4
+
+            - name: Install Dependencies
+              run: npm install
+
+            - name: Run link cheks
+              run: npm run link-check
+
+            - name: Run tests
+              run: npm test
+
+            - name: Run build
+              run: npm run build
+
+            - name: Upload artifact
+              uses: actions/upload-artifact@v3
+              with:
+                name: build
+
+                
